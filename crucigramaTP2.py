@@ -11,42 +11,49 @@ def main():
 	imprimir_solucion = args.solucion # es True si el usuario incluyó la opción -s
 
 	dic = manejo_archivo('palabras.csv')
-	pal_hor,posiciones = horizontal(dic)
-	pal_ver = verticales(pal_hor, dic, posiciones)
-	imp_matriz(pal_hor,posiciones,pal_ver,dic)
+	palab_hor,posiciones = horizontal(dic)
+	palab_verticales = verticales(palab_hor, dic, posiciones)
+	long_matriz(palab_hor,posiciones,palab_verticales)
+	imp_matriz(palab_hor,posiciones,palab_verticales,dic)
 
 def imp_matriz(horizontal, posiciones, verticales, diccionario):
 	return 'pepe'
-		
-def verticales(horizontal, diccionario, lista):
-	'''recibe una palabra(horizontal) al azar, una lista con numeros ordenados y un diccionario.
-	devuelve una lista de tuplas con palabras que tiene una letra en comun con la horizontal y su
-	longitud que tiene arriba y abajo de esa letra'''
 
-	keys = diccionario.keys()
-	n_vert = random.sample(keys, 30) #obtiene las n palabras verticales
-
-	list_vert = []
-	if horizontal in n_vert: #borra la palabra vertical igual a la horizontal
-		n_vert.remove(horizontal)
-		print('hubo')
-
-	for i in lista:
+def long_matriz(horizontal,posiciones,verticales):
+	'''calcula la longutid de cada palabra apartir de la posicion de cruce con la 
+	horizontal y devuelve una tupla'''
+	longitudes = []
+	for i in range(len(posiciones)):
 		arriba = 0
 		abajo = 0
-		for j in n_vert:
-			if (horizontal[i] in j) and (j not in list_vert): #si una cumple pasa a la siguiente iteracion
-				for c in range(len(j)):
-					if c == horizontal[i]:
-						continue
-					pos = j.index(horizontal[i])
-					if c < pos:
-						arriba += 1
-					if c > pos:
-						abajo +=1
-				list_vert.append((j,arriba,abajo))
-				break
-	print(horizontal,lista)
+		for c in range(len(verticales[i])):
+			if verticales[i][c] == horizontal[posiciones[i]]:
+				continue
+			pos = verticales[i].index(horizontal[posiciones[i]])
+			if c < pos:
+				arriba += 1
+			if c > pos:
+				abajo += 1
+		longitudes.append((verticales[i], arriba, abajo))
+	print(longitudes)
+	return longitudes
+def verticales(horizontal, diccionario, lista):
+	'''recibe una palabra(horizontal) al azar, una lista con numeros ordenados y un diccionario.
+	devuelve una lista con palabras que tiene una letra en comun con la horizontal'''
+
+	keys = list(diccionario.keys())
+
+	list_vert = []
+	cont = 0
+	while True:
+		p_alea = random.choice(keys)
+		if p_alea == horizontal:
+			continue
+		if (horizontal[lista[cont]] in p_alea) and (p_alea not in list_vert):
+			list_vert.append(p_alea)
+			cont +=1
+		if len(list_vert) == len(lista):
+			break
 	print(list_vert)
 	return list_vert
 def horizontal(palabras):
@@ -73,6 +80,7 @@ def horizontal(palabras):
 			break
 		if len(nueva_list) == int(len(p_alea)/2):
 			break
+	print(p_alea,nueva_list)
 	return p_alea, nueva_list 
 
 def manejo_archivo(archivo):
