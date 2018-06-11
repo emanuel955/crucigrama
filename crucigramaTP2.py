@@ -24,16 +24,8 @@ def long_matriz(horizontal,posiciones,verticales):
 	horizontal y devuelve una tupla'''
 	longitudes = []
 	for i in range(len(posiciones)):
-		arriba = 0
-		abajo = 0
-		for c in range(len(verticales[i])):
-			if verticales[i][c] == horizontal[posiciones[i]]:
-				continue
-			pos = verticales[i].index(horizontal[posiciones[i]])
-			if c < pos:
-				arriba += 1
-			if c > pos:
-				abajo += 1
+		arriba = verticales[i].index(horizontal[posiciones[i]])
+		abajo = len(verticales[i]) - arriba -1
 		longitudes.append((verticales[i], arriba, abajo))
 	print(longitudes)
 	return longitudes
@@ -54,7 +46,6 @@ def verticales(horizontal, diccionario, lista):
 			cont +=1
 		if len(list_vert) == len(lista):
 			break
-	print(list_vert)
 	return list_vert
 def horizontal(palabras):
 	'''recibe un diccionario, busca cual de ella tiene una longitud mayor igual a 8
