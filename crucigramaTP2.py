@@ -28,6 +28,16 @@ def long_matriz(horizontal,posiciones,verticales):
 		abajo = len(verticales[i]) - arriba -1
 		longitudes.append((verticales[i], arriba, abajo))
 	print(longitudes)
+
+	up = 0
+	down = 0
+	for a,b,c in longitudes:
+		if b > up:
+			up = b
+		if c > down:
+			down = c
+	total = up + down + 1
+	print(total)
 	return longitudes
 def verticales(horizontal, diccionario, lista):
 	'''recibe una palabra(horizontal) al azar, una lista con numeros ordenados y un diccionario.
