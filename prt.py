@@ -41,25 +41,28 @@ def long_matriz(horizontal, posiciones, verticales):
     total = up + down + 1
     print(total)
 
-    cont = 0
+
     matriz = []
-    for c in range(len(horizontal)):
-        for f in range(total):
-            if f == up + 1:
-                matriz.append(horizontal[c])
-                continue
+    for f in range(total):
+        fila = ''
+        cont = 0
+        for c in range(len(horizontal)):
+            if f == up:
+                fila += horizontal
+                break
             if c == posiciones[cont]:
                 ar = up - longitudes[cont][1]
-                if f < ar:
-                    matriz.append(' ')
-                    continue
-                elif f <= up:
-                    matriz.append(verticales[cont][f - ar])
-                    continue
+                if f>= ar:
+                    fila += verticales[cont][f-ar]
+                else:
+                    fila += ' '
                 cont += 1
+                if cont >= len(posiciones):
+                    cont -= 1
+
             else:
-                matriz.append(' ')
-                continue
+                fila += ' '
+        matriz.append(fila)
     print(matriz)
     return longitudes, total
 
