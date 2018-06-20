@@ -13,11 +13,21 @@ def main():
 	dic = manejo_archivo('palabras.csv')
 	palab_hor, posiciones = horizontal(dic)
 	palab_verticales = verticales(palab_hor, dic, posiciones)
-	matriz = crear_matriz(palab_hor, posiciones, palab_verticales)
-	imp_matriz(dic, matriz)
+	matriz,up = crear_matriz(palab_hor, posiciones, palab_verticales)
+	imp_matriz(dic, matriz,up, imprimir_solucion)
 
 
-def imp_matriz(horizontal,total):
+def imp_matriz(horizontal,matriz,up, imprimir_solucion):
+	for fila in matriz:
+		for columna in fila:
+			if columna == ' ':
+				print(' ', end = ' ')
+			else:
+				print('.', end = ' ')
+			
+		print()
+
+
 	return None
 
 
@@ -67,7 +77,7 @@ def crear_matriz(horizontal, posiciones, verticales):
 		matriz.append(fila)
 	print(matriz)
 
-	return matriz
+	return matriz,up
 def verticales(horizontal, diccionario, lista):
 	'''recibe una palabra(horizontal) al azar, una lista con numeros ordenados y un diccionario.
 	devuelve una lista con palabras que tiene una letra en comun con la horizontal'''
