@@ -14,10 +14,12 @@ def main():
 	palab_hor, posiciones = horizontal(dic)
 	palab_verticales = verticales(palab_hor, dic, posiciones)
 	matriz,up = crear_matriz(palab_hor, posiciones, palab_verticales)
-	imp_matriz(dic, matriz,up, imprimir_solucion)
+	imp_matriz(dic,palab_hor,palab_verticales, matriz, imprimir_solucion)
 
 
-def imp_matriz(horizontal,matriz,up, imprimir_solucion):
+def imp_matriz(dic,palab_hor,palab_verticales, matriz, imprimir_solucion):
+	print('CRUCIGRAMA')
+	print()
 	for fila in matriz:
 		for columna in fila:
 			if columna == ' ':
@@ -26,8 +28,19 @@ def imp_matriz(horizontal,matriz,up, imprimir_solucion):
 				print('.', end = ' ')
 			
 		print()
+	print()
 
+	print('DEFICIONES')
+	print('H. {}'.format(dic.get(palab_hor)))
+	for i in range(len(palab_verticales)):
+		print('{}. {}'.format(i+1,dic.get(palab_verticales[i])))
+	print()
 
+	if imprimir_solucion:
+		print('SOLUCION')
+		print()
+		for f in matriz:
+			print(f)
 	return None
 
 
@@ -39,7 +52,6 @@ def crear_matriz(horizontal, posiciones, verticales):
 		arriba = verticales[i].index(horizontal[posiciones[i]])
 		abajo = len(verticales[i]) - arriba - 1
 		longitudes.append((verticales[i], arriba, abajo))
-	print(longitudes)
 
 	up = 0
 	down = 0
@@ -49,7 +61,6 @@ def crear_matriz(horizontal, posiciones, verticales):
 		if z > down:
 			down = z
 	total = up + down + 1
-	print(total)
 
 	
 	matriz = []
@@ -75,7 +86,6 @@ def crear_matriz(horizontal, posiciones, verticales):
 			else:
 				fila += ' '
 		matriz.append(fila)
-	print(matriz)
 
 	return matriz,up
 def verticales(horizontal, diccionario, lista):
@@ -122,7 +132,6 @@ def horizontal(palabras):
 			break
 		if len(nueva_list) == int(len(p_alea) / 2):
 			break
-	print(p_alea, nueva_list)
 	return p_alea, nueva_list
 
 
