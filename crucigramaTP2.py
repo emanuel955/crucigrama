@@ -13,11 +13,13 @@ def main():
 	dic = manejo_archivo('palabras.csv')
 	palab_hor, posiciones = horizontal(dic)
 	palab_verticales = verticales(palab_hor, dic, posiciones)
-	matriz,up = crear_matriz(palab_hor, posiciones, palab_verticales)
+	matriz = crear_matriz(palab_hor, posiciones, palab_verticales)
 	imp_matriz(dic,palab_hor,palab_verticales, matriz, imprimir_solucion)
 
 
 def imp_matriz(dic,palab_hor,palab_verticales, matriz, imprimir_solucion):
+	'''imprime por pantalla el crucigrama y sus definiciones, si se agrega -s cuando se ejecuta el programa
+	este muestra la soluciones'''
 	print('CRUCIGRAMA')
 	print()
 	for fila in matriz:
@@ -87,7 +89,7 @@ def crear_matriz(horizontal, posiciones, verticales):
 				fila += ' '
 		matriz.append(fila)
 
-	return matriz,up
+	return matriz
 def verticales(horizontal, diccionario, lista):
 	'''recibe una palabra(horizontal) al azar, una lista con numeros ordenados y un diccionario.
 	devuelve una lista con palabras que tiene una letra en comun con la horizontal'''
